@@ -1,11 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "../../assets/logo.png";
 import { IoSearch } from "react-icons/io5";
 import { GoHeartFill } from "react-icons/go";
 import { HiShoppingBag } from "react-icons/hi2";
-const Navbar = () => {
+const Navbar = ({scroll,setSearchTerm}) => {
+
+  const [isScrolled,setIsScrolled]=useState(false)
+
+  useEffect(()=>{
+    const changeNavbar = ()=>{
+      setIsScrolled(window.scrollY > 10 )
+  
+    };
+
+    window.addEventListener("scroll", changeNavbar);
+
+    // cleanup on unmount
+  return () => {
+    window.removeEventListener("scroll", changeNavbar);
+  };
+  
+  },[])
+
+
   return (
-    <header className="bg-white fixed top-0 left-0 right-0">
+    <header className={`bg-white fixed top-0 left-0 right-0 z-30 ${isScrolled ? 'shadow-lg':''}`}>
       <nav className="max-w-[1300px] px-10 mx-auto h-[14vh] flex items-center justify-between">
         {/* Logo */}
         <a href="#" className="flex w-15 h-15 bg-zinc-100 rounded-full p-2">
@@ -23,6 +42,8 @@ const Navbar = () => {
               autoComplete="off"
               placeholder="Search..."
               className=" h-[5vh] pl-4 flex-1 focus:outline-none"
+              onFocus={scroll}
+              onChange={(e)=>{setSearchTerm(e.target.value)}}
             />
             <button className="w-10 h-10 rounded-full bg-blue-600 text-white text-xl flex justify-center items-center ">
               <IoSearch />
