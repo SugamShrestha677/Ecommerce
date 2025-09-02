@@ -3,7 +3,7 @@ import Logo from "../../assets/logo.png";
 import { IoSearch } from "react-icons/io5";
 import { GoHeartFill } from "react-icons/go";
 import { HiShoppingBag } from "react-icons/hi2";
-const Navbar = ({scroll,setSearchTerm}) => {
+const Navbar = ({scroll,setSearchTerm,handlePanel}) => {
 
   const [isScrolled,setIsScrolled]=useState(false)
 
@@ -51,13 +51,13 @@ const Navbar = ({scroll,setSearchTerm}) => {
           </div>
 
           {/* Icons */}
-          <button className="text-[1.7rem] text-zinc-800 relative">
+          <button className="text-[1.7rem] text-zinc-800 relative cursor-pointer" onClick={()=>handlePanel('wishlist')}>
             <GoHeartFill />
             <span className="bg-red-600 text-white w-5 h-5 rounded-full text-[14px] flex justify-center items-center absolute top-4 right-3 border-2 border-white">
               1
             </span>
           </button>
-          <button className="text-[1.7rem] text-zinc-800 relative">
+          <button className="text-[1.7rem] text-zinc-800 relative cursor-pointer" onClick={()=>handlePanel('cart')}>
             <HiShoppingBag />
             <span className="bg-red-600 text-white w-5 h-5 rounded-full text-[14px] flex justify-center items-center absolute top-4 right-4 border-2 border-white">
               1
