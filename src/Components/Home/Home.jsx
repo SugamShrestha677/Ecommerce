@@ -72,9 +72,21 @@ const Home = () => {
 
     setCart([...cart, {...product,quantity:1}])
   }
-// Wishlist funbction
+// Wishlist function
   const addToWishlist = (product) =>{
-    setWishlist([...wishlist,product])
+    const isInWishlist =wishlist.some(item => item.id === product.id)
+
+    if (isInWishlist) {
+      setWishlist(wishlist.filter(item=> item.id !== product.id))
+    } else {
+      const addedDate = new Date().toLocaleDateString('en-GB')
+      setWishlist([...wishlist,{...product,addedDate}])
+    }
+  }
+
+  // clear wishlist
+  const clearWishlist = () =>{
+    setWishlist([])
   }
 
   const removeItems =(product)=>{
@@ -85,15 +97,15 @@ const Home = () => {
 
   return (
     <div>
-        <Navbar scroll = {handleScroll} setSearchTerm={setSearchTerm} handlePanel={handlePanel} totalItems={totalItems}/>
+        <Navbar scroll = {handleScroll} setSearchTerm={setSearchTerm} handlePanel={handlePanel} totalItems={totalItems} wishlist={wishlist}/>
         
         <Banner/>
 
-        <Product searchTerm={searchTerm} addToCart={addToCart} addToWishlist={addToWishlist}/>
+        <Product searchTerm={searchTerm} addToCart={addToCart} addToWishlist={addToWishlist} wishlist={wishlist}/>
 
         <Cart activePanel={activePanel}  handleClose={handleClose} cart={cart} removeItems={removeItems} quantityIncrement={quantityIncrement} quantityDecrement={quantityDecrement} subTotal={subTotal} shippingFee={shippingFee} orderTotal={orderTotal} setOrderSummary={setOrderSummary}/>
 
-        <Wishlist activePanel={activePanel} handleClose={handleClose} wishlist={wishlist}/>
+        <Wishlist activePanel={activePanel} handleClose={handleClose} wishlist={wishlist} addToCart={addToCart} clearWishlist={clearWishlist}/>
 
         {
           orderSummary && 
