@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import ProductList from "./Products";
 import { GoHeartFill } from "react-icons/go";
-const Product = ({searchTerm,addToCart}) => {
+const Product = ({searchTerm,addToCart,addToWishlist}) => {
   const categories = [
     "All",
     "Mens",
@@ -32,7 +32,7 @@ const Product = ({searchTerm,addToCart}) => {
       // Card
       <div className="bg-zinc-100 p-5 border-1 border-zinc-100 rounded-lg">
         <div className="flex justify-between items-center">
-          <button className="text-3xl text-zinc-300">
+          <button className="text-3xl text-zinc-300" onClick={()=>addToWishlist(product)}>
             <GoHeartFill />
           </button>
           <div>
